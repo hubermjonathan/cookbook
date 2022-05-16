@@ -18,9 +18,9 @@ extension Item {
         return NSFetchRequest<Item>(entityName: "Item")
     }
     
-    @NSManaged public var amount: String
-    @NSManaged public var category: String
-    @NSManaged public var name: String
+    @NSManaged public var name: String?
+    @NSManaged public var category: String?
+    @NSManaged public var amount: String?
 }
 
 extension Item: Identifiable {

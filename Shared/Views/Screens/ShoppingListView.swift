@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ShoppingListView: View {
-    @Environment(\.managedObjectContext) private var moc
+    private var dataController: DataController = DataController.shared
+    
     var items: FetchedResults<Item>
     
-    private func removeItem(item: Item) {
-        moc.delete(item)
-        try? moc.save()
+    init(items: FetchedResults<Item>) {
+        self.items = items
     }
     
     var body: some View {
@@ -23,11 +23,11 @@ struct ShoppingListView: View {
                     Section(header: Text(category.rawValue)) {
                         ForEach(items.filter { item in item.category == category.rawValue }) { item in
                             HStack {
-                                Text(item.name)
+                                Text(item.name!)
                                 
                                 Spacer()
                                 
-                                Text(item.amount)
+                                Text(item.amount!)
                                     .padding(.trailing, 5)
                             }
                             .contentShape(Rectangle())
@@ -56,5 +56,11 @@ struct ShoppingListView: View {
                 }
             }
         }
+    }
+}
+
+extension ShoppingListView {
+    private func removeItem(item: Item) {
+        dataController.delete(item)
     }
 }

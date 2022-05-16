@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct IngredientsListEditor: View {
-    @Environment(\.managedObjectContext) private var moc
-    @Binding var categories: [String]
     @Binding var names: [String]
+    @Binding var categories: [String]
     @Binding var amounts: [String]
-    
-    func getCategoryBinding(forIndex index: Int) -> Binding<String> {
-        return Binding<String>(
-            get: { categories[index] },
-            set: { category in categories[index] = category }
-        )
-    }
     
     func getNamesBinding(forIndex index: Int) -> Binding<String> {
         return Binding<String>(
             get: { names[index] },
             set: { name in names[index] = name }
+        )
+    }
+    
+    func getCategoryBinding(forIndex index: Int) -> Binding<String> {
+        return Binding<String>(
+            get: { categories[index] },
+            set: { category in categories[index] = category }
         )
     }
     
@@ -37,7 +36,7 @@ struct IngredientsListEditor: View {
     var body: some View {
         Section(header: Text("Ingredients")) {
             ForEach(0 ..< names.count, id: \.self) { index in
-                ListItem(category: getCategoryBinding(forIndex: index), name: getNamesBinding(forIndex: index), amount: getAmountsBinding(forIndex: index)) {
+                ListItem(name: getNamesBinding(forIndex: index), category: getCategoryBinding(forIndex: index), amount: getAmountsBinding(forIndex: index)) {
                     self.categories.remove(at: index)
                     self.names.remove(at: index)
                     self.amounts.remove(at: index)
@@ -54,9 +53,10 @@ struct IngredientsListEditor: View {
 }
 
 fileprivate struct ListItem: View {
-    @Binding var category: String
     @Binding var name: String
+    @Binding var category: String
     @Binding var amount: String
+    
     var removeAction: () -> Void
     
     var body: some View {

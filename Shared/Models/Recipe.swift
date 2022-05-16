@@ -18,18 +18,18 @@ extension Recipe {
         return NSFetchRequest<Recipe>(entityName: "Recipe")
     }
     
-    @NSManaged public var name: String
-    @NSManaged public var ingredients: NSSet
-    @NSManaged public var instructions: NSSet
+    @NSManaged public var name: String?
+    @NSManaged public var ingredients: NSSet?
+    @NSManaged public var instructions: NSSet?
     
-    public var ingredientsSorted: [Ingredient] {
+    public var ingredientsWrapper: [Ingredient] {
         let set = ingredients as? Set<Ingredient> ?? []
         return set.sorted {
-            $0.name < $1.name
+            $0.name! < $1.name!
         }
     }
     
-    public var instructionsSorted: [Instruction] {
+    public var instructionsWrapper: [Instruction] {
         let set = instructions as? Set<Instruction> ?? []
         return set.sorted {
             $0.order < $1.order

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct InstructionsListEditor: View {
-    @Environment(\.managedObjectContext) private var moc
     @Binding var steps: [String]
     
     func getStepBinding(forIndex index: Int) -> Binding<String> {
@@ -35,6 +34,7 @@ struct InstructionsListEditor: View {
 
 fileprivate struct ListItem: View {
     @Binding var step: String
+    
     var order: Int16
     var removeAction: () -> Void
     

@@ -10,23 +10,57 @@ import SwiftUI
 struct EditRecipeView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
-    @State var recipe: Recipe
-    @State var name: String
-    @State var ingredientNames: [String]
-    @State var ingredientCategories: [String]
-    @State var ingredientAmounts: [String]
-    @State var instructionSteps: [String]
     
+    private var dataController: DataController = DataController.shared
+    
+    @State var name: String = ""
+    @State var ingredientNames: [String] = []
+    @State var ingredientCategories: [String] = []
+    @State var ingredientAmounts: [String] = []
+    @State var instructionSteps: [String] = []
+    
+    @ObservedObject var recipe: Recipe
+    
+    init(recipe: Recipe) {
+        self.recipe = recipe
+        self.name = recipe.name!
+        self.ingredientNames = recipe.ingredientsWrapper.map { ingredient in ingredient.name! }
+        self.ingredientCategories = recipe.ingredientsWrapper.map { ingredient in ingredient.category! }
+        self.ingredientAmounts = recipe.ingredientsWrapper.map { ingredient in ingredient.amount! }
+        self.instructionSteps = recipe.instructionsWrapper.map { instruction in instruction.step! }
+    }
+    
+    var body: some View {
+        Form {
+            Section(header: Text("Name")) {
+                TextField("Name", text: $name)
+            }
+            
+            IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
+            
+            InstructionsListEditor(steps: $instructionSteps)
+            
+            Button("Edit Recipe") {
+                editRecipe()
+                presentationMode.wrappedValue.dismiss()
+            }
+            .disabled(isEditRecipeButtonDisabled())
+        }
+        .navigationTitle("Edit Recipe")
+    }
+}
+
+extension EditRecipeView {
     private func isEditRecipeButtonDisabled() -> Bool {
         return name.isEmpty || ingredientNames.isEmpty || ingredientNames.contains("") || ingredientCategories.isEmpty || ingredientCategories.contains("") || ingredientAmounts.isEmpty || ingredientAmounts.contains("") || instructionSteps.isEmpty || instructionSteps.contains("")
     }
     
     private func editRecipe() {
-        for ingredient in recipe.ingredientsSorted {
+        for ingredient in recipe.ingredientsWrapper {
             recipe.removeFromIngredients(ingredient)
         }
         
-        for instruction in recipe.instructionsSorted {
+        for instruction in recipe.instructionsWrapper {
             recipe.removeFromInstructions(instruction)
         }
         
@@ -47,25 +81,6 @@ struct EditRecipeView: View {
             recipe.addToInstructions(instruction)
         }
         
-        try? moc.save()
-    }
-    
-    var body: some View {
-        Form {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $name)
-            }
-            
-            IngredientsListEditor(categories: $ingredientCategories, names: $ingredientNames, amounts: $ingredientAmounts)
-            
-            InstructionsListEditor(steps: $instructionSteps)
-            
-            Button("Edit Recipe") {
-                editRecipe()
-                presentationMode.wrappedValue.dismiss()
-            }
-            .disabled(isEditRecipeButtonDisabled())
-        }
-        .navigationTitle("Edit Recipe")
+        dataController.save()
     }
 }

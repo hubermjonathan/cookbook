@@ -10,21 +10,12 @@ import SwiftUI
 struct AddItemView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
+    
+    private var dataController: DataController = DataController.shared
+    
     @State private var name: String = ""
     @State private var category: Category = Category.other
     @State private var amount: String = ""
-    
-    private func isAddItemButtonDisabled() -> Bool {
-        return name.isEmpty || amount.isEmpty
-    }
-    
-    private func addItem() {
-        let item = Item(context: moc)
-        item.name = name
-        item.category = category.rawValue
-        item.amount = amount
-        try? moc.save()
-    }
     
     var body: some View {
         Form {
@@ -51,5 +42,19 @@ struct AddItemView: View {
             .disabled(isAddItemButtonDisabled())
         }
         .navigationTitle("Add Item")
+    }
+}
+
+extension AddItemView {
+    private func isAddItemButtonDisabled() -> Bool {
+        return name.isEmpty || amount.isEmpty
+    }
+    
+    private func addItem() {
+        let item = Item(context: moc)
+        item.name = name
+        item.category = category.rawValue
+        item.amount = amount
+        dataController.save()
     }
 }

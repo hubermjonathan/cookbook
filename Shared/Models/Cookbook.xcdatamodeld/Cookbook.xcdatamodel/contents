@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
-        <attribute name="amount" attributeType="String" minValueString="1"/>
-        <attribute name="category" attributeType="String" minValueString="1"/>
-        <attribute name="name" attributeType="String" minValueString="1"/>
+        <attribute name="amount" attributeType="String" minValueString="1" defaultValueString="UNKOWN_AMOUNT"/>
+        <attribute name="category" attributeType="String" minValueString="1" defaultValueString="Other"/>
+        <attribute name="name" attributeType="String" minValueString="1" defaultValueString="UNKOWN_NAME"/>
+        <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="ingredients" inverseEntity="Recipe"/>
     </entity>
     <entity name="Instruction" representedClassName="Instruction" syncable="YES">
-        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="step" attributeType="String"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="step" attributeType="String" defaultValueString="UNKOWN_STEP"/>
+        <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="instructions" inverseEntity="Recipe"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES">
-        <attribute name="amount" attributeType="String" minValueString="1"/>
-        <attribute name="category" attributeType="String" minValueString="1"/>
-        <attribute name="name" attributeType="String" minValueString="1"/>
+        <attribute name="amount" attributeType="String" minValueString="1" defaultValueString="UNKOWN_AMOUNT"/>
+        <attribute name="category" attributeType="String" minValueString="1" defaultValueString="Other"/>
+        <attribute name="name" attributeType="String" minValueString="1" defaultValueString="UNKOWN_NAME"/>
     </entity>
     <entity name="Recipe" representedClassName="Recipe" syncable="YES">
-        <attribute name="name" attributeType="String" minValueString="1"/>
-        <relationship name="ingredients" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient"/>
-        <relationship name="instructions" toMany="YES" deletionRule="Nullify" destinationEntity="Instruction"/>
+        <attribute name="name" attributeType="String" minValueString="1" defaultValueString="UNKOWN_NAME"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="recipes" inverseEntity="Ingredient"/>
+        <relationship name="instructions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Instruction" inverseName="recipes" inverseEntity="Instruction"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="18" width="128" height="88"/>
-        <element name="Recipe" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="Instruction" positionX="-63" positionY="27" width="128" height="73"/>
-        <element name="Ingredient" positionX="-54" positionY="63" width="128" height="88"/>
+        <element name="Ingredient" positionX="-54" positionY="63" width="128" height="89"/>
+        <element name="Instruction" positionX="-63" positionY="27" width="128" height="74"/>
+        <element name="Item" positionX="-63" positionY="18" width="128" height="74"/>
+        <element name="Recipe" positionX="-63" positionY="-18" width="128" height="74"/>
     </elements>
 </model>

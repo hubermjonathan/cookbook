@@ -10,32 +10,27 @@ import SwiftUI
 struct RecipeDetailsView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
+    
+    private var dataController: DataController = DataController.shared
+    
     @State private var isShowingConfirmRemove: Bool = false
-    var recipe: Recipe
     
-    private func removeRecipe() {
-        moc.delete(recipe)
-        try? moc.save()
-    }
+    @ObservedObject var recipe: Recipe
     
-    private func addItemToShoppingList(ingredient: Ingredient) {
-        let item = Item(context: moc)
-        item.name = ingredient.name
-        item.category = ingredient.category
-        item.amount = ingredient.amount
-        try? moc.save()
+    init(recipe: Recipe) {
+        self.recipe = recipe
     }
     
     var body: some View {
         List {
             Section(header: Text("Ingredients")) {
-                ForEach(recipe.ingredientsSorted) { ingredient in
+                ForEach(recipe.ingredientsWrapper) { ingredient in
                     HStack {
-                        Text(ingredient.name)
+                        Text(ingredient.name!)
                         
                         Spacer()
                         
-                        Text(ingredient.amount)
+                        Text(ingredient.amount!)
                             .padding(.trailing, 5)
                     }
                     .swipeActions(edge: .trailing) {
@@ -52,21 +47,21 @@ struct RecipeDetailsView: View {
             }
             
             Section(header: Text("Instructions")) {
-                ForEach(recipe.instructionsSorted) { instruction in
+                ForEach(recipe.instructionsWrapper) { instruction in
                     HStack {
                         Text("\(instruction.order).")
                             .padding(.trailing, 5)
                         
-                        Text(instruction.step)
+                        Text(instruction.step!)
                     }
                 }
             }
         }
         .listStyle(.sidebar)
-        .navigationBarTitle(recipe.name)
+        .navigationBarTitle(recipe.name!)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: EditRecipeView(recipe: recipe, name: recipe.name, ingredientNames: recipe.ingredientsSorted.map { ingredient in ingredient.name }, ingredientCategories: recipe.ingredientsSorted.map { ingredient in ingredient.category }, ingredientAmounts: recipe.ingredientsSorted.map { ingredient in ingredient.amount }, instructionSteps: recipe.instructionsSorted.map { instruction in instruction.step })) {
+                NavigationLink(destination: EditRecipeView(recipe: recipe)) {
                     Image(systemName: "pencil")
                         .padding(.trailing, 5)
                 }
@@ -88,5 +83,19 @@ struct RecipeDetailsView: View {
                 .padding(.trailing, 5)
             }
         }
+    }
+}
+
+extension RecipeDetailsView {
+    private func removeRecipe() {
+        dataController.delete(recipe)
+    }
+    
+    private func addItemToShoppingList(ingredient: Ingredient) {
+        let item = Item(context: moc)
+        item.name = ingredient.name
+        item.category = ingredient.category
+        item.amount = ingredient.amount
+        dataController.save()
     }
 }
