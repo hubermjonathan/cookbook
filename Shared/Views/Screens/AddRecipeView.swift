@@ -8,34 +8,71 @@
 import SwiftUI
 
 struct AddRecipeView: View {
+    // TODO: change to sheet
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
     
     private var dataController: DataController = DataController.shared
     
     @State private var name: String = ""
+    @State private var image: UIImage = UIImage(named: "Placeholder.png")!
+    @State private var isShowingImagePicker: Bool = false
     @State private var ingredientNames: [String] = []
     @State private var ingredientCategories: [String] = []
     @State private var ingredientAmounts: [String] = []
     @State private var instructionSteps: [String] = []
     
     var body: some View {
-        Form {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $name)
+        NavigationView {
+            Form {
+                Section(header: Text("Name and Image")) {
+                    HStack {
+                        Button(action: {
+                            isShowingImagePicker = true
+                        }) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 75, height: 75)
+                                .cornerRadius(10)
+                                .padding([.vertical, .trailing], 10)
+                        }
+                        .buttonStyle(.borderless)
+                        
+                        TextField("Name", text: $name)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
+                
+                InstructionsListEditor(steps: $instructionSteps)
             }
-            
-            IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
-            
-            InstructionsListEditor(steps: $instructionSteps)
-            
-            Button("Add Recipe") {
-                addRecipe()
-                presentationMode.wrappedValue.dismiss()
+            .sheet(isPresented: $isShowingImagePicker) {
+                ImagePicker(image: $image)
             }
-            .disabled(isAddRecipeButtonDisabled())
+            .navigationTitle("Add Recipe")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        addRecipe()
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Text("Done")
+                            .bold()
+                    }
+                    .disabled(isAddRecipeButtonDisabled())
+                }
+            }
         }
-        .navigationTitle("Add Recipe")
     }
 }
 
@@ -47,6 +84,7 @@ extension AddRecipeView {
     private func addRecipe() {
         let recipe = Recipe(context: moc)
         recipe.name = name
+        recipe.image = image.pngData()
         
         for index in 0 ..< ingredientNames.count {
             let ingredient = Ingredient(context: moc)

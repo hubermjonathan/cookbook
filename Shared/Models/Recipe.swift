@@ -19,13 +19,14 @@ extension Recipe {
     }
     
     @NSManaged public var name: String?
+    @NSManaged public var image: Data?
     @NSManaged public var ingredients: NSSet?
     @NSManaged public var instructions: NSSet?
     
     public var ingredientsWrapper: [Ingredient] {
         let set = ingredients as? Set<Ingredient> ?? []
         return set.sorted {
-            $0.name! < $1.name!
+            $0.name ?? Constants.UNKOWN_NAME < $1.name ?? Constants.UNKOWN_NAME
         }
     }
     

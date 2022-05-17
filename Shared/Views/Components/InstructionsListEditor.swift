@@ -10,7 +10,7 @@ import SwiftUI
 struct InstructionsListEditor: View {
     @Binding var steps: [String]
     
-    func getStepBinding(forIndex index: Int) -> Binding<String> {
+    private func getStepBinding(forIndex index: Int) -> Binding<String> {
         return Binding<String>(
             get: { steps[index] },
             set: { step in steps[index] = step }
@@ -43,7 +43,7 @@ fileprivate struct ListItem: View {
             Text("\(order).")
                 .padding(.trailing, 5)
             
-            TextField("Instruction", text: $step)
+            TextField("Step", text: $step)
         }
         .swipeActions(edge: .trailing) {
             Button(action: {

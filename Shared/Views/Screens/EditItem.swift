@@ -1,21 +1,30 @@
 //
-//  AddItemView.swift
+//  EditItem.swift
 //  Cookbook (iOS)
 //
-//  Created by Jonathan Huber on 5/13/22.
+//  Created by Jonathan Huber on 5/16/22.
 //
 
 import SwiftUI
 
-struct AddItemView: View {
+struct EditItemView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
     
     private var dataController: DataController = DataController.shared
     
-    @State private var name: String = ""
-    @State private var category: String = Category.other.rawValue
-    @State private var amount: String = ""
+    @State private var name: String
+    @State private var category: String
+    @State private var amount: String
+    
+    @ObservedObject var item: Item
+        
+    init(item: Item) {
+        self.item = item
+        _name = State(initialValue: item.name ?? Constants.UNKOWN_NAME)
+        _category = State(initialValue: item.category ?? Constants.UNKOWN_CATEGORY)
+        _amount = State(initialValue: item.amount ?? Constants.UNKOWN_AMOUNT)
+    }
     
     var body: some View {
         NavigationView {
@@ -36,7 +45,7 @@ struct AddItemView: View {
                     TextField("Amount", text: $amount)
                 }
             }
-            .navigationTitle("Add Item")
+            .navigationTitle("Edit Item")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -48,26 +57,25 @@ struct AddItemView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        addItem()
+                        editItem()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
                             .bold()
                     }
-                    .disabled(isAddItemButtonDisabled())
+                    .disabled(isEditItemButtonDisabled())
                 }
             }
         }
     }
 }
 
-extension AddItemView {
-    private func isAddItemButtonDisabled() -> Bool {
+extension EditItemView {
+    private func isEditItemButtonDisabled() -> Bool {
         return name.isEmpty || amount.isEmpty
     }
     
-    private func addItem() {
-        let item = Item(context: moc)
+    private func editItem() {
         item.name = name
         item.category = category
         item.amount = amount

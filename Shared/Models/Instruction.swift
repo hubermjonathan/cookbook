@@ -25,7 +25,7 @@ extension Instruction {
     public var recipesWrapper: [Recipe] {
         let set = recipes as? Set<Recipe> ?? []
         return set.sorted {
-            $0.name! < $1.name!
+            $0.name ?? Constants.UNKOWN_NAME < $1.name ?? Constants.UNKOWN_NAME
         }
     }
 }

@@ -13,40 +13,77 @@ struct EditRecipeView: View {
     
     private var dataController: DataController = DataController.shared
     
-    @State var name: String = ""
-    @State var ingredientNames: [String] = []
-    @State var ingredientCategories: [String] = []
-    @State var ingredientAmounts: [String] = []
-    @State var instructionSteps: [String] = []
+    @State var name: String
+    @State private var image: UIImage
+    @State private var isShowingImagePicker: Bool = false
+    @State var ingredientNames: [String]
+    @State var ingredientCategories: [String]
+    @State var ingredientAmounts: [String]
+    @State var instructionSteps: [String]
     
     @ObservedObject var recipe: Recipe
     
     init(recipe: Recipe) {
         self.recipe = recipe
-        self.name = recipe.name!
-        self.ingredientNames = recipe.ingredientsWrapper.map { ingredient in ingredient.name! }
-        self.ingredientCategories = recipe.ingredientsWrapper.map { ingredient in ingredient.category! }
-        self.ingredientAmounts = recipe.ingredientsWrapper.map { ingredient in ingredient.amount! }
-        self.instructionSteps = recipe.instructionsWrapper.map { instruction in instruction.step! }
+        _name = State(initialValue: recipe.name ?? Constants.UNKOWN_NAME)
+        _image = State(initialValue: UIImage(data: recipe.image!) ?? UIImage(named: "Placeholder.png")!)
+        _ingredientNames = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.name ?? Constants.UNKOWN_NAME })
+        _ingredientCategories = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.category ?? Constants.UNKOWN_CATEGORY })
+        _ingredientAmounts = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.amount ?? Constants.UNKOWN_AMOUNT })
+        _instructionSteps = State(initialValue: recipe.instructionsWrapper.map { instruction in instruction.step ?? Constants.UNKOWN_STEP })
     }
     
     var body: some View {
-        Form {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $name)
+        NavigationView {
+            Form {
+                Section(header: Text("Name and Image")) {
+                    HStack {
+                        Button(action: {
+                            isShowingImagePicker = true
+                        }) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 75, height: 75)
+                                .cornerRadius(10)
+                                .padding([.vertical, .trailing], 10)
+                        }
+                        .buttonStyle(.borderless)
+                        
+                        TextField("Name", text: $name)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
+                
+                InstructionsListEditor(steps: $instructionSteps)
             }
-            
-            IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
-            
-            InstructionsListEditor(steps: $instructionSteps)
-            
-            Button("Edit Recipe") {
-                editRecipe()
-                presentationMode.wrappedValue.dismiss()
+            .sheet(isPresented: $isShowingImagePicker) {
+                ImagePicker(image: $image)
             }
-            .disabled(isEditRecipeButtonDisabled())
+            .navigationTitle("Edit Recipe")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        editRecipe()
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Text("Done")
+                            .bold()
+                    }
+                    .disabled(isEditRecipeButtonDisabled())
+                }
+            }
         }
-        .navigationTitle("Edit Recipe")
     }
 }
 
@@ -65,6 +102,7 @@ extension EditRecipeView {
         }
         
         recipe.name = name
+        recipe.image = image.pngData()
         
         for index in 0 ..< ingredientNames.count {
             let ingredient = Ingredient(context: moc)

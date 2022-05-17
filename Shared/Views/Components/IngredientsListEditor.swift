@@ -12,21 +12,21 @@ struct IngredientsListEditor: View {
     @Binding var categories: [String]
     @Binding var amounts: [String]
     
-    func getNamesBinding(forIndex index: Int) -> Binding<String> {
+    private func getNamesBinding(forIndex index: Int) -> Binding<String> {
         return Binding<String>(
             get: { names[index] },
             set: { name in names[index] = name }
         )
     }
     
-    func getCategoryBinding(forIndex index: Int) -> Binding<String> {
+    private func getCategoryBinding(forIndex index: Int) -> Binding<String> {
         return Binding<String>(
             get: { categories[index] },
             set: { category in categories[index] = category }
         )
     }
     
-    func getAmountsBinding(forIndex index: Int) -> Binding<String> {
+    private func getAmountsBinding(forIndex index: Int) -> Binding<String> {
         return Binding<String>(
             get: { amounts[index] },
             set: { amount in amounts[index] = amount }
@@ -61,15 +61,19 @@ fileprivate struct ListItem: View {
     
     var body: some View {
         VStack {
-            Picker("Category of ingredient", selection: $category) {
+            Picker("Category", selection: $category) {
                 ForEach(Category.allCases.map { category in category.rawValue }, id: \.self) { category in
                     Text(category)
                 }
             }
             .padding(.vertical, 5)
             
+            // TODO: fix tap area for picker
+            
             HStack {
-                TextField("Ingredient", text: $name)
+                TextField("Name", text: $name)
+                
+                Divider()
                 
                 TextField("Amount", text: $amount)
             }

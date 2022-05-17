@@ -10,6 +10,9 @@ import SwiftUI
 struct ShoppingListView: View {
     private var dataController: DataController = DataController.shared
     
+    @State private var isShowingEditItem: Item? = nil
+    @State private var isShowingAddItem: Bool = false
+
     var items: FetchedResults<Item>
     
     init(items: FetchedResults<Item>) {
@@ -23,11 +26,11 @@ struct ShoppingListView: View {
                     Section(header: Text(category.rawValue)) {
                         ForEach(items.filter { item in item.category == category.rawValue }) { item in
                             HStack {
-                                Text(item.name!)
+                                Text(item.name ?? Constants.UNKOWN_NAME)
                                 
                                 Spacer()
                                 
-                                Text(item.amount!)
+                                Text(item.amount ?? Constants.UNKOWN_AMOUNT)
                                     .padding(.trailing, 5)
                             }
                             .contentShape(Rectangle())
@@ -40,8 +43,17 @@ struct ShoppingListView: View {
                                     Image(systemName: "trash.fill")
                                 }
                                 .tint(.red)
+                                
+                                Button(action: {
+                                    isShowingEditItem = item
+                                }) {
+                                    Image(systemName: "pencil")
+                                }
+                                .tint(.gray)
                             }
-                            
+                            .sheet(item: $isShowingEditItem) { item in
+                                EditItemView(item: item)
+                            }
                         }
                     }
                 }
@@ -50,10 +62,15 @@ struct ShoppingListView: View {
             .navigationTitle("Shopping List")
             .toolbar {
                 ToolbarItem {
-                    NavigationLink(destination: AddItemView()) {
+                    Button(action: {
+                        isShowingAddItem = true
+                    }) {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .popover(isPresented: $isShowingAddItem) {
+                AddItemView()
             }
         }
     }

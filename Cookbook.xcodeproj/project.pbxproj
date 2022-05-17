@@ -10,6 +10,10 @@
 		E6082915282F247100F995CD /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6082914282F247100F995CD /* ShoppingListView.swift */; };
 		E6082917282F258600F995CD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6082916282F258600F995CD /* Category.swift */; };
 		E608291C282F28A500F995CD /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608291B282F28A500F995CD /* AddItemView.swift */; };
+		E6135C2B2832FCCD002F19EA /* RecipeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6135C2A2832FCCD002F19EA /* RecipeRow.swift */; };
+		E6135C2D2832FE08002F19EA /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6135C2C2832FE08002F19EA /* ImagePicker.swift */; };
+		E62B3B8D283360080071AB36 /* EditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62B3B8C283360080071AB36 /* EditItem.swift */; };
+		E648CFF928330770007FC0FF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E648CFF828330770007FC0FF /* Constants.swift */; };
 		E6A5097D282E164B00771D4B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5097C282E164B00771D4B /* DataController.swift */; };
 		E6A50980282E189100771D4B /* Cookbook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6A5097E282E189100771D4B /* Cookbook.xcdatamodeld */; };
 		E6ABC033282F82D800D260A3 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ABC032282F82D800D260A3 /* RecipesView.swift */; };
@@ -32,6 +36,11 @@
 		E6082914282F247100F995CD /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		E6082916282F258600F995CD /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		E608291B282F28A500F995CD /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
+		E6135C2A2832FCCD002F19EA /* RecipeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRow.swift; sourceTree = "<group>"; };
+		E6135C2C2832FE08002F19EA /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		E6135C2E2833036A002F19EA /* Cookbook-1.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cookbook-1.2.0.xcdatamodel"; sourceTree = "<group>"; };
+		E62B3B8C283360080071AB36 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
+		E648CFF828330770007FC0FF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E6A5097C282E164B00771D4B /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		E6A5097F282E189100771D4B /* Cookbook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cookbook.xcdatamodel; sourceTree = "<group>"; };
 		E6ABC032282F82D800D260A3 /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
@@ -71,6 +80,7 @@
 			children = (
 				E6A5097E282E189100771D4B /* Cookbook.xcdatamodeld */,
 				E6A5097C282E164B00771D4B /* DataController.swift */,
+				E648CFF828330770007FC0FF /* Constants.swift */,
 				E6082916282F258600F995CD /* Category.swift */,
 				E6ABC05A2831B94700D260A3 /* Instruction.swift */,
 				E6ABC05C2831B98C00D260A3 /* Ingredient.swift */,
@@ -99,6 +109,7 @@
 				E6ABC06828321F6C00D260A3 /* EditRecipeView.swift */,
 				E6082914282F247100F995CD /* ShoppingListView.swift */,
 				E608291B282F28A500F995CD /* AddItemView.swift */,
+				E62B3B8C283360080071AB36 /* EditItem.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -106,6 +117,8 @@
 		E6ABC03D2831965200D260A3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E6135C2A2832FCCD002F19EA /* RecipeRow.swift */,
+				E6135C2C2832FE08002F19EA /* ImagePicker.swift */,
 				E6ABC0622831C08100D260A3 /* IngredientsListEditor.swift */,
 				E6ABC0602831BD2500D260A3 /* InstructionsListEditor.swift */,
 			);
@@ -222,17 +235,21 @@
 			files = (
 				E6A50980282E189100771D4B /* Cookbook.xcdatamodeld in Sources */,
 				E6E651C0282E14C600ACF7C2 /* ContentView.swift in Sources */,
+				E6135C2B2832FCCD002F19EA /* RecipeRow.swift in Sources */,
 				E6ABC033282F82D800D260A3 /* RecipesView.swift in Sources */,
 				E6ABC05B2831B94700D260A3 /* Instruction.swift in Sources */,
 				E6ABC0632831C08100D260A3 /* IngredientsListEditor.swift in Sources */,
 				E6ABC0372830C3CF00D260A3 /* AddRecipeView.swift in Sources */,
+				E6135C2D2832FE08002F19EA /* ImagePicker.swift in Sources */,
 				E6A5097D282E164B00771D4B /* DataController.swift in Sources */,
+				E62B3B8D283360080071AB36 /* EditItem.swift in Sources */,
 				E6ABC05D2831B98C00D260A3 /* Ingredient.swift in Sources */,
 				E6ABC06928321F6C00D260A3 /* EditRecipeView.swift in Sources */,
 				E6E651BE282E14C600ACF7C2 /* CookbookApp.swift in Sources */,
 				E6ABC03B2830C9F500D260A3 /* RecipeDetailsView.swift in Sources */,
 				E6082915282F247100F995CD /* ShoppingListView.swift in Sources */,
 				E6ABC06F2832239400D260A3 /* Item.swift in Sources */,
+				E648CFF928330770007FC0FF /* Constants.swift in Sources */,
 				E608291C282F28A500F995CD /* AddItemView.swift in Sources */,
 				E6082917282F258600F995CD /* Category.swift in Sources */,
 				E6ABC0612831BD2500D260A3 /* InstructionsListEditor.swift in Sources */,
@@ -375,7 +392,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hubermjonathan.Cookbook;
 				PRODUCT_NAME = Cookbook;
 				SDKROOT = iphoneos;
@@ -408,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hubermjonathan.Cookbook;
 				PRODUCT_NAME = Cookbook;
 				SDKROOT = iphoneos;
@@ -446,9 +463,10 @@
 		E6A5097E282E189100771D4B /* Cookbook.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E6135C2E2833036A002F19EA /* Cookbook-1.2.0.xcdatamodel */,
 				E6A5097F282E189100771D4B /* Cookbook.xcdatamodel */,
 			);
-			currentVersion = E6A5097F282E189100771D4B /* Cookbook.xcdatamodel */;
+			currentVersion = E6135C2E2833036A002F19EA /* Cookbook-1.2.0.xcdatamodel */;
 			path = Cookbook.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
