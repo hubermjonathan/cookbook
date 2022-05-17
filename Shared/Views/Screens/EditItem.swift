@@ -18,7 +18,7 @@ struct EditItemView: View {
     @State private var amount: String
     
     @ObservedObject var item: Item
-        
+    
     init(item: Item) {
         self.item = item
         _name = State(initialValue: item.name ?? Constants.UNKOWN_NAME)
@@ -35,7 +35,7 @@ struct EditItemView: View {
                 
                 Section(header: Text("Category")) {
                     Picker("Category", selection: $category) {
-                        ForEach(Category.allCases.map { category in category.rawValue }, id: \.self) { category in
+                        ForEach(ItemCategory.allCases.map { category in category.rawValue }, id: \.self) { category in
                             Text(category)
                         }
                     }

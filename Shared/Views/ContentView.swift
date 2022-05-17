@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @FetchRequest(sortDescriptors: []) private var recipes: FetchedResults<Recipe>
-    @FetchRequest(sortDescriptors: []) private var items: FetchedResults<Item>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) private var recipes: FetchedResults<Recipe>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) private var items: FetchedResults<Item>
     
     var body: some View {
         TabView {

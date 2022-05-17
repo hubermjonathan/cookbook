@@ -44,7 +44,7 @@ struct IngredientsListEditor: View {
             }
             
             AddButton() {
-                self.categories.append(Category.other.rawValue)
+                self.categories.append(ItemCategory.other.rawValue)
                 self.names.append("")
                 self.amounts.append("")
             }
@@ -62,13 +62,13 @@ fileprivate struct ListItem: View {
     var body: some View {
         VStack {
             Picker("Category", selection: $category) {
-                ForEach(Category.allCases.map { category in category.rawValue }, id: \.self) { category in
+                ForEach(ItemCategory.allCases.map { category in category.rawValue }, id: \.self) { category in
                     Text(category)
                 }
             }
             .padding(.vertical, 5)
             
-            // TODO: fix tap area for picker
+            Divider()
             
             HStack {
                 TextField("Name", text: $name)

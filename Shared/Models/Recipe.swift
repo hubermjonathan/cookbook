@@ -20,6 +20,7 @@ extension Recipe {
     
     @NSManaged public var name: String?
     @NSManaged public var image: Data?
+    @NSManaged public var category: String?
     @NSManaged public var ingredients: NSSet?
     @NSManaged public var instructions: NSSet?
     

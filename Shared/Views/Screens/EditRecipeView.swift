@@ -16,10 +16,11 @@ struct EditRecipeView: View {
     @State var name: String
     @State private var image: UIImage
     @State private var isShowingImagePicker: Bool = false
-    @State var ingredientNames: [String]
-    @State var ingredientCategories: [String]
-    @State var ingredientAmounts: [String]
-    @State var instructionSteps: [String]
+    @State private var category: String
+    @State private var ingredientNames: [String]
+    @State private var ingredientCategories: [String]
+    @State private var ingredientAmounts: [String]
+    @State private var instructionSteps: [String]
     
     @ObservedObject var recipe: Recipe
     
@@ -27,6 +28,7 @@ struct EditRecipeView: View {
         self.recipe = recipe
         _name = State(initialValue: recipe.name ?? Constants.UNKOWN_NAME)
         _image = State(initialValue: UIImage(data: recipe.image!) ?? UIImage(named: "Placeholder.png")!)
+        _category = State(initialValue: recipe.category ?? Constants.UNKOWN_CATEGORY)
         _ingredientNames = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.name ?? Constants.UNKOWN_NAME })
         _ingredientCategories = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.category ?? Constants.UNKOWN_CATEGORY })
         _ingredientAmounts = State(initialValue: recipe.ingredientsWrapper.map { ingredient in ingredient.amount ?? Constants.UNKOWN_AMOUNT })
@@ -53,6 +55,14 @@ struct EditRecipeView: View {
                         TextField("Name", text: $name)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Section(header: Text("Category")) {
+                    Picker("Category", selection: $category) {
+                        ForEach(RecipeCategory.allCases.map { category in category.rawValue }, id: \.self) { category in
+                            Text(category)
+                        }
+                    }
                 }
                 
                 IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
@@ -103,6 +113,7 @@ extension EditRecipeView {
         
         recipe.name = name
         recipe.image = image.pngData()
+        recipe.category = category
         
         for index in 0 ..< ingredientNames.count {
             let ingredient = Ingredient(context: moc)

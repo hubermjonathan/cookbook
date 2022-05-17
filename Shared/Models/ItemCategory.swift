@@ -1,11 +1,11 @@
 //
-//  Category.swift
+//  ItemCategory.swift
 //  Cookbook (iOS)
 //
 //  Created by Jonathan Huber on 5/13/22.
 //
 
-enum Category: String, CaseIterable {
+enum ItemCategory: String, CaseIterable {
     case produce = "Produce"
     case bread = "Bread"
     case meat = "Meat"

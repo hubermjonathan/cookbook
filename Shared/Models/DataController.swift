@@ -9,6 +9,7 @@ import CoreData
 
 class DataController: ObservableObject {
     static let shared = DataController()
+    
     var context: NSManagedObjectContext {
         persistentContainer.viewContext
     }
@@ -41,6 +42,7 @@ class DataController: ObservableObject {
     }()
     
     private var _privatePersistentStore: NSPersistentStore?
+    
     private init() {}
 }
 

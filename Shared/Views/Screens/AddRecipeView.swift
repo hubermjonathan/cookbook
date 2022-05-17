@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddRecipeView: View {
-    // TODO: change to sheet
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
     
@@ -17,6 +16,7 @@ struct AddRecipeView: View {
     @State private var name: String = ""
     @State private var image: UIImage = UIImage(named: "Placeholder.png")!
     @State private var isShowingImagePicker: Bool = false
+    @State private var category: String = RecipeCategory.other.rawValue
     @State private var ingredientNames: [String] = []
     @State private var ingredientCategories: [String] = []
     @State private var ingredientAmounts: [String] = []
@@ -42,6 +42,14 @@ struct AddRecipeView: View {
                         TextField("Name", text: $name)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Section(header: Text("Category")) {
+                    Picker("Category", selection: $category) {
+                        ForEach(RecipeCategory.allCases.map { category in category.rawValue }, id: \.self) { category in
+                            Text(category)
+                        }
+                    }
                 }
                 
                 IngredientsListEditor(names: $ingredientNames, categories: $ingredientCategories, amounts: $ingredientAmounts)
@@ -85,6 +93,7 @@ extension AddRecipeView {
         let recipe = Recipe(context: moc)
         recipe.name = name
         recipe.image = image.pngData()
+        recipe.category = category
         
         for index in 0 ..< ingredientNames.count {
             let ingredient = Ingredient(context: moc)

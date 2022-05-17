@@ -15,9 +15,13 @@ struct RecipesView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(recipes) { recipe in
-                    NavigationLink(destination: RecipeDetailsView(recipe: recipe)) {
-                        RecipeRow(recipe: recipe)
+                ForEach(RecipeCategory.allCases, id: \.self) { category in
+                    Section(header: Text(category.rawValue)) {
+                        ForEach(recipes.filter { recipe in recipe.category ?? RecipeCategory.other.rawValue == category.rawValue }) { recipe in
+                            NavigationLink(destination: RecipeDetailsView(recipe: recipe)) {
+                                RecipeRow(recipe: recipe)
+                            }
+                        }
                     }
                 }
             }

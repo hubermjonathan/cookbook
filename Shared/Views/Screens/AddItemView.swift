@@ -14,7 +14,7 @@ struct AddItemView: View {
     private var dataController: DataController = DataController.shared
     
     @State private var name: String = ""
-    @State private var category: String = Category.other.rawValue
+    @State private var category: String = ItemCategory.other.rawValue
     @State private var amount: String = ""
     
     var body: some View {
@@ -26,7 +26,7 @@ struct AddItemView: View {
                 
                 Section(header: Text("Category")) {
                     Picker("Category", selection: $category) {
-                        ForEach(Category.allCases.map { category in category.rawValue }, id: \.self) { category in
+                        ForEach(ItemCategory.allCases.map { category in category.rawValue }, id: \.self) { category in
                             Text(category)
                         }
                     }
