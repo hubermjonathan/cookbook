@@ -68,8 +68,6 @@ fileprivate struct ListItem: View {
             }
             .padding(.vertical, 5)
             
-            Divider()
-            
             HStack {
                 TextField("Name", text: $name)
                 

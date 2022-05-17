@@ -82,7 +82,6 @@ struct RecipeDetailsView: View {
                         isShowingEditRecipe = true
                     }) {
                         Image(systemName: "pencil")
-                            .padding(.trailing, 5)
                     }
                 }
                 
@@ -99,7 +98,6 @@ struct RecipeDetailsView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
-                    .padding(.trailing, 5)
                 }
             }
             .sheet(isPresented: $isShowingEditRecipe) {

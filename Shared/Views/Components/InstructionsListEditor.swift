@@ -35,6 +35,8 @@ struct InstructionsListEditor: View {
 fileprivate struct ListItem: View {
     @Binding var step: String
     
+    @State private var placeholderStep: String = "Step"
+    
     var order: Int16
     var removeAction: () -> Void
     
@@ -43,7 +45,16 @@ fileprivate struct ListItem: View {
             Text("\(order).")
                 .padding(.trailing, 5)
             
-            TextField("Step", text: $step)
+            ZStack(alignment: .leading) {
+                if step.isEmpty {
+                    TextEditor(text: $placeholderStep)
+                        .foregroundColor(Color(UIColor.placeholderText))
+                        .padding(.vertical, 5)
+                }
+                
+                TextEditor(text: $step)
+                    .padding(.vertical, 5)
+            }
         }
         .swipeActions(edge: .trailing) {
             Button(action: {

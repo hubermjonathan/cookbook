@@ -1,5 +1,5 @@
 # Cookbook
-**v1.1.3** <img src="Shared/Assets.xcassets/AppIcon.appiconset/iTunesArtwork@2x.png" align="right" alt="logo" width="200px" height="200px"></br>
+**v1.4.1** <img src="Shared/Assets.xcassets/AppIcon.appiconset/iTunesArtwork@2x.png" align="right" alt="logo" width="200px" height="200px"></br>
 Cookbook is an app to store recipes and easily create shopping lists</br>
 
 ## planned features
@@ -9,9 +9,10 @@ Cookbook is an app to store recipes and easily create shopping lists</br>
 **a/b testing** - create a/b tests to test new features
 
 ## version history
-**1.1.3** - added recipe categories</br>
-**1.1.2** - added edit item</br>
-**1.1.1** - added images to recipes</br>
+**1.4.1** - made small ui changes</br>
+**1.4.0** - added recipe categories</br>
+**1.3.0** - added edit item</br>
+**1.2.0** - added images to recipes</br>
 **1.1.0** - added icloud sync support</br>
 **1.0.0** - created recipes and shopping list
 

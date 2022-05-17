@@ -41,7 +41,7 @@
 		E60E17BD28341E8000C193D6 /* RecipeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCategory.swift; sourceTree = "<group>"; };
 		E6135C2A2832FCCD002F19EA /* RecipeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRow.swift; sourceTree = "<group>"; };
 		E6135C2C2832FE08002F19EA /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		E6135C2E2833036A002F19EA /* Cookbook-1.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cookbook-1.1.1.xcdatamodel"; sourceTree = "<group>"; };
+		E6135C2E2833036A002F19EA /* Cookbook-1.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cookbook-1.2.0.xcdatamodel"; sourceTree = "<group>"; };
 		E62B3B8C283360080071AB36 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
 		E648CFF828330770007FC0FF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E6A5097C282E164B00771D4B /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		E6B3BB0D2832487200D3B643 /* Cookbook (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cookbook (iOS).entitlements"; sourceTree = "<group>"; };
 		E6B3BB0F2832487900D3B643 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		E6C70B7528341B6C00C4B89D /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
-		E6C70B7728341C2900C4B89D /* Cookbook-1.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cookbook-1.1.3.xcdatamodel"; sourceTree = "<group>"; };
+		E6C70B7728341C2900C4B89D /* Cookbook-1.4.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cookbook-1.4.0.xcdatamodel"; sourceTree = "<group>"; };
 		E6E651AE282E14C500ACF7C2 /* CookbookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookbookApp.swift; sourceTree = "<group>"; };
 		E6E651AF282E14C500ACF7C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E6E651B0282E14C600ACF7C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hubermjonathan.Cookbook;
 				PRODUCT_NAME = Cookbook;
 				SDKROOT = iphoneos;
@@ -434,7 +434,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hubermjonathan.Cookbook;
 				PRODUCT_NAME = Cookbook;
 				SDKROOT = iphoneos;
@@ -472,11 +472,11 @@
 		E6A5097E282E189100771D4B /* Cookbook.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				E6C70B7728341C2900C4B89D /* Cookbook-1.1.3.xcdatamodel */,
-				E6135C2E2833036A002F19EA /* Cookbook-1.1.1.xcdatamodel */,
+				E6C70B7728341C2900C4B89D /* Cookbook-1.4.0.xcdatamodel */,
+				E6135C2E2833036A002F19EA /* Cookbook-1.2.0.xcdatamodel */,
 				E6A5097F282E189100771D4B /* Cookbook.xcdatamodel */,
 			);
-			currentVersion = E6C70B7728341C2900C4B89D /* Cookbook-1.1.3.xcdatamodel */;
+			currentVersion = E6C70B7728341C2900C4B89D /* Cookbook-1.4.0.xcdatamodel */;
 			path = Cookbook.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
